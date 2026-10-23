@@ -110,7 +110,15 @@ Open the live link on your phone to check it before sharing.
 - Smooth scrolling, scroll reveals, active-section highlight in the dock
 - Responsive from small phones to large desktops; honours "reduce motion" settings
 
-## 8. Troubleshooting
+## 8. Performance (phones and low-power devices)
+
+The hero has live 3D, so the page automatically switches to a **lite mode** on phones, tablets and
+low-power devices: the liquid-metal shaders become static glass buttons, the 3D root is smaller and
+runs at about 30fps, and all hero rendering pauses once you scroll past it. Desktop keeps the full effect.
+
+To force a mode for testing, add this to the address: `index.html?lite=1` (lite) or `?lite=0` (full).
+
+## 9. Troubleshooting
 
 | Problem | Fix |
 |---|---|

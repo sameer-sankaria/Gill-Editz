@@ -10,7 +10,22 @@
 <meta property="og:description" content="Heyy, I'm Veer. Here to change your perspective.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23232b21'/%3E%3Cpath d='M7 9h4.2l4.8 11.5L20.8 9H25l-7 15h-4z' fill='%23f2f3ef'/%3E%3C/svg%3E">
-<script>document.documentElement.className += " js";</script>
+<script>
+/* Lite mode: phones, tablets and low-power devices get a lighter hero
+   (CSS glass buttons instead of live shaders, a smaller 3D root, 30fps).
+   Force it either way with ?lite=1 or ?lite=0 in the address. */
+(function(){
+  var lite=false;
+  try{
+    var q=/[?&]lite=(\d)/.exec(location.search);
+    if(q) lite=q[1]==='1';
+    else lite = matchMedia('(pointer:coarse)').matches || matchMedia('(max-width:900px)').matches ||
+      (navigator.hardwareConcurrency||8)<=4 || (navigator.deviceMemory||8)<=4;
+  }catch(e){}
+  window.__LITE=lite;
+  document.documentElement.className += " js" + (lite?" lite":"");
+})();
+</script>
 <style>
   @font-face{
     font-family:'Lexend';
@@ -1773,6 +1788,7 @@ const IDLE_HZ = 30;
 let lastDraw = 0;
 
 function frame(now){
+  if(globalThis.__heroVisible === false || document.hidden){ last = now; requestAnimationFrame(frame); return; }
   const dtRaw = (now - last) / 1000; last = now;
   const dt = Math.min(dtRaw, 1/20);
   if(!calm.matches) clock += dt;
@@ -1990,8 +2006,10 @@ window.__seek   = v => { clock = v; drawn = null; };
 
   }
 
-  const hosts = globalThis.document.querySelectorAll('[data-liquid-metal]');
-  for (let i = 0; i < hosts.length; i++) mountLiquidMetal(hosts[i]);
+  if (!globalThis.__LITE) {
+    const hosts = globalThis.document.querySelectorAll('[data-liquid-metal]');
+    for (let i = 0; i < hosts.length; i++) mountLiquidMetal(hosts[i]);
+  }
 })();
 </script>
 <script>
@@ -2029,6 +2047,14 @@ window.__seek   = v => { clock = v; drawn = null; };
 
   var pointer = { x: 0, y: 0 }, smooth = { x: 0, y: 0 };
   var heroEl = document.getElementById('hero');
+  var LITE = !!window.__LITE;
+  window.__heroVisible = true;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      window.__heroVisible = es[es.length - 1].isIntersecting;
+    }, { threshold: 0 }).observe(heroEl);
+  }
+  var lastRender = 0;
   var lastX = null, lastY = null;
   var ticking = false, parOn = false;
 
@@ -2043,6 +2069,7 @@ window.__seek   = v => { clock = v; drawn = null; };
   var lastTick = 0;
   function tick() {
     var now = performance.now();
+    if (window.__heroVisible === false || document.hidden) { lastTick = now; return; }
     var dtUI = lastTick ? Math.min((now - lastTick) / 1000, 0.05) : 0.016;
     lastTick = now;
     drawDock(dtUI);
@@ -2061,12 +2088,15 @@ window.__seek   = v => { clock = v; drawn = null; };
         heroEl.style.setProperty('--py', ny);
       }
     }
-    if (renderer && clock) renderFrame();
+    if (renderer && clock) {
+      /* lite: ~30fps is plenty for a slow-moving root and halves the GPU load */
+      if (!LITE || now - lastRender > 30) { lastRender = now; renderFrame(); }
+    }
   }
 
   function startParallax() {
     startTick();
-    if (REDUCED || parOn) return;
+    if (REDUCED || parOn || LITE) return;
     parOn = true;
     var nodes = document.querySelectorAll(PARALLAX);
     for (var i = 0; i < nodes.length; i++) nodes[i].classList.add('par');
@@ -3685,15 +3715,16 @@ window.__seek   = v => { clock = v; drawn = null; };
   function build() {
     var narrow = NARROW.matches;
     var small = narrow || (window.innerWidth * window.innerHeight) < 620000;
-    var BLADES_NEAR = small ? 70000 : 190000;
-    var BLADES_FAR  = small ? 20000 :  60000;
+    var LITE = !!window.__LITE;
+    var BLADES_NEAR = LITE ? 30000 : (small ? 70000 : 190000);
+    var BLADES_FAR  = LITE ?  8000 : (small ? 20000 :  60000);
 
     var q = /[?&]blades=(\d+)/.exec(location.search);
     if (q) { BLADES_NEAR = +q[1]; BLADES_FAR = Math.round(+q[1] * 0.21); }
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: !small });
     renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.6 : 2));
+    renderer.setPixelRatio(LITE ? 1 : Math.min(window.devicePixelRatio || 1, small ? 1.6 : 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.30;
     if ('sRGBEncoding' in THREE) renderer.outputEncoding = THREE.sRGBEncoding;
@@ -3865,7 +3896,7 @@ window.__seek   = v => { clock = v; drawn = null; };
      Each grain carries its own origin, velocity and birth stamp, so the CPU
      only writes when one is respawned out of the ring — the flight itself is
      integrated in the vertex shader, same as the ambient pollen. */
-  var SPRAY_N = 620, SPRAY_LIFE = 1.6;
+  var SPRAY_N = window.__LITE ? 260 : 620, SPRAY_LIFE = 1.6;
   var spray = null, sprayPos, sprayVel, sprayBirth, sprayRnd;
   var sprayHead = 0, sprayIdle = 0, sprayDirty = false;
   var sprayPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -240);
