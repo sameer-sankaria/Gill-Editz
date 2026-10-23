@@ -18,13 +18,13 @@ window.VEER_CONFIG = {
   contact: {
     // WhatsApp number: country code + number, digits only (no +, spaces or dashes).
     // Example for India: "919876543210"
-    whatsapp: "917986346652",
+    whatsapp: "+917986346652",
 
     // Pre-filled text when someone taps a WhatsApp button
     whatsappMessage: "Hi Veer! I found your portfolio and I'd like to work with you on a video editing project.",
 
     // Number shown on the page (and used for tap-to-call)
-    phone: "+91 XXXXX XXXXX",
+    phone: "+91 7986346652",
 
     // Optional. Leave as "" to hide email everywhere on the site.
     email: "hello@yourdomain.com"
