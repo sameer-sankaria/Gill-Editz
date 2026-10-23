@@ -10,7 +10,7 @@ window.VEER_CONFIG = {
 
   /* ── Social profiles ─────────────────────────────────────────────────── */
   links: {
-    youtube: "https://www.youtube.com/@YOUR_CHANNEL",      // your YouTube channel URL
+    youtube: "https://www.youtube.com/@tseries",      // your YouTube channel URL
     instagram: "https://www.instagram.com/YOUR_HANDLE"       // your Instagram profile URL
   },
 
