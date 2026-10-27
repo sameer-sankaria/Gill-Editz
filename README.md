@@ -16,6 +16,7 @@ veer-portfolio/
 ├── config.js         ← ★ ALL your links, numbers and videos live here
 ├── css/site.css      ← styles for everything below the hero
 ├── js/site.js        ← gallery, video pop-up, filters, form, link wiring
+├── js/services.js    ← the pinned scroll-driven Services section
 ├── assets/
 │   ├── hero-edit.svg ← placeholder art for the "Featured Edit" card
 │   └── hero-reel.svg ← placeholder art for the "Reel Spotlight" card
@@ -86,7 +87,7 @@ Until you add a real YouTube link or a `thumb`, the cards show the built-in artw
 
 ## 5. Editing the text
 
-- **About text, Services, headings and footer copy** are plain HTML in `index.html`.
+- **About text, Services, headings and footer copy** are plain HTML in `index.html`. For a service, edit its `<article class="svcx__panel">` (title, text, tags) and its name in the list beside it.
   Search for the words you want to change (for example "Video Editing") and edit them in place.
 - **Colours** are CSS variables at the top of `css/site.css` (forest green, black, off-white).
 
@@ -105,8 +106,9 @@ Open the live link on your phone to check it before sharing.
 - Two floating video cards with hover motion and a pixel "transmission" reveal; click to play
 - Filterable video gallery (All / YouTube / Reels / Cinematic / Motion)
 - In-page video pop-up (Esc or click outside to close, focus is trapped for keyboard users)
-- About, Services (6), Hire-me banner, Contact with WhatsApp form, footer
+- About, Hire-me banner, Contact with WhatsApp form, footer
 - Floating WhatsApp "Hire me" button after you scroll past the hero
+- Services as a pinned scroll story: scroll and each of the 6 services takes the stage with blur, slide and rotate motion, plus a clickable list, counter and progress bar (plain cards if "reduce motion" is on)
 - Smooth scrolling, scroll reveals, active-section highlight in the dock
 - Responsive from small phones to large desktops; honours "reduce motion" settings
 

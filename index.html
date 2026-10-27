@@ -994,52 +994,86 @@
     </div>
   </section>
 
-  <!-- ── services ────────────────────────────────────────────────────── -->
-  <section class="sec" id="services" aria-labelledby="services-title">
-    <div class="wrap">
-      <header class="sec-head rv">
-        <p class="eyebrow">Services</p>
-        <h2 class="sec-title" id="services-title">Everything between <em>raw and released.</em></h2>
-        <p class="sec-sub">One editor from first cut to final export, so your story keeps one voice.</p>
-      </header>
-
-      <div class="services">
-        <article class="svc rv">
-          <span class="svc__no">01</span>
-          <span class="svc__ico"><svg class="icon" aria-hidden="true"><use href="#i-film"/></svg></span>
-          <h3>Video Editing</h3>
-          <p>Long-form YouTube edits with tight pacing, clean cuts and a structure that keeps people watching.</p>
-        </article>
-        <article class="svc rv" style="--rd:90ms">
-          <span class="svc__no">02</span>
-          <span class="svc__ico"><svg class="icon" aria-hidden="true"><use href="#i-reel"/></svg></span>
-          <h3>Reels &amp; Shorts</h3>
-          <p>Scroll-stopping vertical edits with sharp hooks, beat-synced cuts, captions and smooth transitions.</p>
-        </article>
-        <article class="svc rv" style="--rd:180ms">
-          <span class="svc__no">03</span>
-          <span class="svc__ico"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg></span>
-          <h3>Color Grading</h3>
-          <p>Cinematic looks and consistent colour across every shot, from moody and filmic to bright and clean.</p>
-        </article>
-        <article class="svc rv">
-          <span class="svc__no">04</span>
-          <span class="svc__ico"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></span>
-          <h3>Motion Graphics</h3>
-          <p>Animated titles, lower thirds, logo stings and graphic accents that add polish without the noise.</p>
-        </article>
-        <article class="svc rv" style="--rd:90ms">
-          <span class="svc__no">05</span>
-          <span class="svc__ico"><svg class="icon" aria-hidden="true"><use href="#i-clap"/></svg></span>
-          <h3>Cinematic Edits</h3>
-          <p>Trailers, travel films, event highlights and short films cut with rhythm, mood and atmosphere.</p>
-        </article>
-        <article class="svc rv" style="--rd:180ms">
-          <span class="svc__no">06</span>
-          <span class="svc__ico"><svg class="icon" aria-hidden="true"><use href="#i-wave"/></svg></span>
-          <h3>Sound &amp; Captions</h3>
-          <p>Audio clean-up, music and sound design, plus accurate subtitles to boost reach and retention.</p>
-        </article>
+  <!-- ── services: pinned, scroll-driven (js/services.js) ───────────────
+       Scroll through the section and each service takes the stage in turn.
+       Edit the text of any service right here. -->
+  <section class="svcx" id="services" aria-labelledby="services-title">
+    <div class="svcx__track">
+      <div class="svcx__pin">
+        <div class="wrap svcx__grid">
+          <div class="svcx__left">
+            <p class="eyebrow">Services</p>
+            <h2 class="sec-title" id="services-title">Everything between <em>raw and released.</em></h2>
+            <p class="sec-sub svcx__sub">One editor from first cut to final export, so your story keeps one voice.</p>
+            <ol class="svcx__list" aria-label="Jump to a service">
+            <li><button type="button" data-i="0"><span class="n">01</span><span class="t">Video Editing</span></button></li>
+            <li><button type="button" data-i="1"><span class="n">02</span><span class="t">Reels &amp; Shorts</span></button></li>
+            <li><button type="button" data-i="2"><span class="n">03</span><span class="t">Color Grading</span></button></li>
+            <li><button type="button" data-i="3"><span class="n">04</span><span class="t">Motion Graphics</span></button></li>
+            <li><button type="button" data-i="4"><span class="n">05</span><span class="t">Cinematic Edits</span></button></li>
+            <li><button type="button" data-i="5"><span class="n">06</span><span class="t">Sound &amp; Captions</span></button></li>
+            </ol>
+            <p class="svcx__hint" aria-hidden="true"><span></span>Keep scrolling</p>
+          </div>
+          <div class="svcx__stage">
+            <div class="svcx__count" aria-hidden="true"><b id="svcx-cur">01</b><span>/ 06</span></div>
+          <article class="svcx__panel" data-i="0">
+            <span class="svcx__ghost" aria-hidden="true">01</span>
+            <div class="svcx__art" aria-hidden="true"><i class="ring r1"></i><i class="ring r2"></i><span class="ico"><svg class="icon"><use href="#i-film"/></svg></span></div>
+            <div class="svcx__copy">
+              <h3>Video Editing</h3>
+              <p>Long-form YouTube edits with tight pacing, clean cuts and a structure that keeps people watching.</p>
+              <ul class="svcx__tags"><li>Pacing</li><li>Clean cuts</li><li>Story structure</li></ul>
+            </div>
+          </article>
+          <article class="svcx__panel" data-i="1">
+            <span class="svcx__ghost" aria-hidden="true">02</span>
+            <div class="svcx__art" aria-hidden="true"><i class="ring r1"></i><i class="ring r2"></i><span class="ico"><svg class="icon"><use href="#i-reel"/></svg></span></div>
+            <div class="svcx__copy">
+              <h3>Reels &amp; Shorts</h3>
+              <p>Scroll-stopping vertical edits with sharp hooks, beat-synced cuts, captions and smooth transitions.</p>
+              <ul class="svcx__tags"><li>Hooks</li><li>Beat-sync</li><li>Captions</li></ul>
+            </div>
+          </article>
+          <article class="svcx__panel" data-i="2">
+            <span class="svcx__ghost" aria-hidden="true">03</span>
+            <div class="svcx__art" aria-hidden="true"><i class="ring r1"></i><i class="ring r2"></i><span class="ico"><svg class="icon"><use href="#i-sliders"/></svg></span></div>
+            <div class="svcx__copy">
+              <h3>Color Grading</h3>
+              <p>Cinematic looks and consistent colour across every shot, from moody and filmic to bright and clean.</p>
+              <ul class="svcx__tags"><li>Filmic looks</li><li>Shot matching</li><li>Clean skin tones</li></ul>
+            </div>
+          </article>
+          <article class="svcx__panel" data-i="3">
+            <span class="svcx__ghost" aria-hidden="true">04</span>
+            <div class="svcx__art" aria-hidden="true"><i class="ring r1"></i><i class="ring r2"></i><span class="ico"><svg class="icon"><use href="#i-spark"/></svg></span></div>
+            <div class="svcx__copy">
+              <h3>Motion Graphics</h3>
+              <p>Animated titles, lower thirds, logo stings and graphic accents that add polish without the noise.</p>
+              <ul class="svcx__tags"><li>Titles</li><li>Lower thirds</li><li>Logo stings</li></ul>
+            </div>
+          </article>
+          <article class="svcx__panel" data-i="4">
+            <span class="svcx__ghost" aria-hidden="true">05</span>
+            <div class="svcx__art" aria-hidden="true"><i class="ring r1"></i><i class="ring r2"></i><span class="ico"><svg class="icon"><use href="#i-clap"/></svg></span></div>
+            <div class="svcx__copy">
+              <h3>Cinematic Edits</h3>
+              <p>Trailers, travel films, event highlights and short films cut with rhythm, mood and atmosphere.</p>
+              <ul class="svcx__tags"><li>Trailers</li><li>Travel films</li><li>Highlights</li></ul>
+            </div>
+          </article>
+          <article class="svcx__panel" data-i="5">
+            <span class="svcx__ghost" aria-hidden="true">06</span>
+            <div class="svcx__art" aria-hidden="true"><i class="ring r1"></i><i class="ring r2"></i><span class="ico"><svg class="icon"><use href="#i-wave"/></svg></span></div>
+            <div class="svcx__copy">
+              <h3>Sound &amp; Captions</h3>
+              <p>Audio clean-up, music and sound design, plus accurate subtitles to boost reach and retention.</p>
+              <ul class="svcx__tags"><li>Audio clean-up</li><li>Sound design</li><li>Subtitles</li></ul>
+            </div>
+          </article>
+            <div class="svcx__bar" aria-hidden="true"><i></i></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1187,6 +1221,7 @@
 
 <script src="config.js"></script>
 <script src="js/site.js"></script>
+<script src="js/services.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>window.THREE || document.write('<script src="assets/three.min.js"><\/script>');</script>
