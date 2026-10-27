@@ -32,7 +32,7 @@ veer-portfolio/
 You never need to touch `index.html` for links or videos. The page fills them in automatically.
 
 > **Internet needed:** the 3D moss-root in the hero loads three.js from a CDN, and the
-> Lexend font and YouTube thumbnails also come from the web. If you're offline, everything still
+> Lexend font (loaded from Google Fonts, with a backup source) and YouTube thumbnails also come from the web. If you're offline, everything still
 > works, but the 3D root won't grow. To make it fully offline, download
 > `https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js` and save it as
 > `assets/three.min.js` (the page already looks for it there as a backup).
