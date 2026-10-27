@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f4a35"/><stop offset=".55" stop-color="#1c2a1f"/><stop offset="1" stop-color="#0f1612"/></linearGradient>
+    <radialGradient id="glow" cx=".72" cy=".25" r=".6"><stop offset="0" stop-color="#a9c27a" stop-opacity=".45"/><stop offset="1" stop-color="#a9c27a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#glow)"/>
+  <!-- timeline clips -->
+  <g>
+    <rect x="90"  y="170" width="360" height="62" rx="14" fill="#f2f3ef" opacity=".92"/>
+    <rect x="466" y="170" width="250" height="62" rx="14" fill="#a9c27a" opacity=".9"/>
+    <rect x="732" y="170" width="380" height="62" rx="14" fill="#f2f3ef" opacity=".55"/>
+    <rect x="150" y="256" width="300" height="62" rx="14" fill="#a9c27a" opacity=".55"/>
+    <rect x="466" y="256" width="420" height="62" rx="14" fill="#f2f3ef" opacity=".8"/>
+    <rect x="902" y="256" width="210" height="62" rx="14" fill="#a9c27a" opacity=".85"/>
+    <rect x="90"  y="342" width="560" height="44" rx="12" fill="#f2f3ef" opacity=".22"/>
+    <rect x="666" y="342" width="446" height="44" rx="12" fill="#f2f3ef" opacity=".32"/>
+  </g>
+  <!-- waveform -->
+  <g stroke="#f2f3ef" stroke-opacity=".35" stroke-width="5" stroke-linecap="round">
+    <path d="M110 440v20M130 428v44M150 436v28M170 418v64M190 432v36M210 424v52M230 440v20M250 414v72M270 430v40M290 436v28M310 420v60M330 438v24M350 426v48M370 444v16M390 416v68M410 432v36M430 440v20M450 424v52M470 436v28M490 418v64M510 430v40M530 438v24M550 422v56M570 436v28M590 428v44M610 440v20M630 414v72M650 432v36M670 438v24M690 424v52M710 436v28M730 420v60M750 440v20M770 428v44M790 434v32M810 416v68M830 436v28M850 426v48M870 440v20M890 420v60M910 434v32M930 438v24M950 424v52M970 436v28M990 430v40M1010 440v20M1030 418v64M1050 434v32M1070 440v20M1090 426v48"/>
+  </g>
+  <!-- playhead -->
+  <g>
+    <rect x="604" y="120" width="4" height="340" rx="2" fill="#f2f3ef"/>
+    <path d="M590 112h32l-16 22z" fill="#f2f3ef"/>
+  </g>
+</svg>
