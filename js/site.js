@@ -277,8 +277,8 @@
     count.className = 'work-story__count';
     count.setAttribute('aria-hidden', 'true');
     var current = document.createElement('b');
-    var totalCount = document.createElement('span');
     count.appendChild(current);
+    var totalCount = document.createElement('span');
     count.appendChild(totalCount);
     var progress = document.createElement('div');
     progress.className = 'work-story__bar';
@@ -345,6 +345,7 @@
     var cards = $$('.vcard', host);
     var liveCards = [];
     var scrollTotal = 1, target = 0, pos = 0, raf = 0, lastTime = 0, active = -1, lastPos = -1;
+    var CALM = REDUCED;
     function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
     function ease(value) { return value < .5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2; }
     function smooth(value) { return value * value * (3 - 2 * value); }
@@ -353,19 +354,24 @@
       var frame = value * Math.max(0, liveCards.length - 1);
       liveCards.forEach(function (card, index) {
         var distance = frame - index;
-        var blend = clamp((Math.abs(distance) - .06) / .64, 0, 1);
+        var amount = Math.abs(distance);
+        var blend = clamp((amount - .06) / .64, 0, 1);
         var eased = ease(blend) * (distance > 0 ? 1 : -1);
         var opacity = 1 - smooth(clamp(blend / .7, 0, 1));
         var style = card.style;
         style.opacity = opacity.toFixed(3);
         style.visibility = blend >= .999 ? 'hidden' : 'visible';
         style.zIndex = blend < .5 ? '2' : '1';
-        style.transform = REDUCED || blend === 0 ? 'none' :
-          'translate3d(0,' + (eased * 90).toFixed(2) + 'px,0) scale(' + (1 - Math.abs(eased) * .04).toFixed(4) + ')';
+        if (!CALM) {
+          style.transform = blend === 0 ? 'none' :
+            'translate3d(0,' + (eased * 90).toFixed(2) + 'px,0) scale(' + (1 - Math.abs(eased) * .04).toFixed(4) + ')';
+        } else {
+          style.transform = 'none';
+        }
       });
 
-      progressFill.style.transform = 'scaleX(' + value.toFixed(4) + ')';
-      section.classList.toggle('is-started', value > .02);
+      if (progressFill) progressFill.style.transform = 'scaleX(' + value.toFixed(4) + ')';
+      if (section) section.classList.toggle('is-started', value > .02);
       var index = clamp(Math.round(frame), 0, Math.max(0, liveCards.length - 1));
       liveCards.forEach(function (card, i) {
         if (i === index) card.removeAttribute('aria-hidden');
@@ -397,17 +403,16 @@
 
     function updateCards() {
       liveCards = cards.filter(function (card) { return !card.hidden; });
-      active = -1;
       if (!liveCards.length) {
         cards.forEach(function (card) { card.setAttribute('aria-hidden', 'true'); });
         current.textContent = '00';
         totalCount.textContent = '/ 00';
         progressFill.style.transform = 'scaleX(0)';
-        section.classList.remove('work-story--live', 'is-started');
         return;
       }
-      if (track) track.style.setProperty('--gallery-count', liveCards.length);
-      section.classList.toggle('work-story--live', !!track && !!pin);
+      active = -1;
+      if (track) track.style.setProperty('--gallery-count', Math.max(liveCards.length, 1));
+      if (section) section.classList.toggle('work-story--live', !!track && !!pin && liveCards.length > 0);
       read();
     }
 

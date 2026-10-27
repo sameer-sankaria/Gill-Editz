@@ -104,7 +104,7 @@ Open the live link on your phone to check it before sharing.
 
 - Cinematic hero with 3D root, liquid-metal buttons, pointer parallax and an animated dock nav
 - Two floating video cards with hover motion and a pixel "transmission" reveal; click to play
-- Filterable video gallery (All / YouTube / Reels / Cinematic / Motion)
+- Filterable video gallery as a pinned, scroll-driven showcase (All / YouTube / Reels / Cinematic / Motion)
 - In-page video pop-up (Esc or click outside to close, focus is trapped for keyboard users)
 - About, Hire-me banner, Contact with WhatsApp form, footer
 - Floating WhatsApp "Hire me" button after you scroll past the hero
