@@ -82,6 +82,7 @@ window.VEER_CONFIG = {
     { category: "reels",     title: "Product Launch Reel",             meta: "Instagram Reel",          url: "https://www.instagram.com/reel/YOUR_REEL_ID_B/",  thumb: "" },
     { category: "other",     title: "Motion Titles & Logo Sting",      meta: "Motion graphics",         url: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID_D", thumb: "" },
     { category: "cinematic", title: "Event Highlight Film",            meta: "Cinematic · Highlights",  url: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID_E", thumb: "" },
-    { category: "youtube",   title: "Podcast Clip Package",            meta: "YouTube · Shorts",        url: "https://www.youtube.com/shorts/YOUR_SHORT_ID",    thumb: "" }
+    { category: "youtube",   title: "Podcast Clip Package",            meta: "YouTube · Shorts",        url: "https://www.youtube.com/shorts/YOUR_SHORT_ID",    thumb: "" },
+    { category: "reels",     title: "Brand Promo Reel",                meta: "Instagram Reel",          url: "https://www.instagram.com/reel/YOUR_REEL_ID_C/",  thumb: "" }
   ]
 };

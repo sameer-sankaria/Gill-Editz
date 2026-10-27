@@ -421,7 +421,7 @@
   /* ── cards ───────────────────────────────────────────────────────────── */
   .card{
     position:absolute;
-    background:var(--card); border-radius:calc(46 * var(--u));
+    background:var(--card); border-radius:calc(24 * var(--u));
     box-shadow:0 calc(30 * var(--u)) calc(70 * var(--u)) rgba(16,21,13,.30);
     transition:box-shadow .8s var(--ease);
   }
@@ -456,7 +456,7 @@
      copy sits under it. Same frame, mirrored. */
   .card figure{
     position:absolute; left:calc(14 * var(--u)); right:calc(14 * var(--u));
-    border-radius:calc(34 * var(--u)); overflow:hidden;
+    border-radius:calc(10 * var(--u)); overflow:hidden;
     isolation:isolate; background:#263025;
   }
   .card--stove figure{ bottom:calc(14 * var(--u)); height:calc(158 * var(--u)); }
@@ -562,7 +562,7 @@
 
   .intro-done .mask, .intro-done .mask-circle{ clip-path:none; transition:none; }
 
-  .card{ --mr:calc(46 * var(--u)); }
+  .card{ --mr:calc(24 * var(--u)); }
 
   /* the dock drops in tile by tile; the capsule itself only fades, because
      a clip on it would cut the pills off as they magnify past its edge */
@@ -591,15 +591,15 @@
      stepped clip exposes the photograph while sampled pixel-dots gather along
      the advancing edge (the dots themselves are painted by canvas).
      Both plates scan across, the Ethos one a beat ahead of the Field Note. */
-  .js .portal-media{ clip-path:inset(0 100% 0 0 round calc(25 * var(--u))); }
+  .js .portal-media{ clip-path:inset(0 100% 0 0 round calc(8 * var(--u))); }
   .is-ready .card--about .portal-media{ animation:portal-cut 1.45s steps(12,end) .92s both; }
   .is-ready .card--stove .portal-media{ animation:portal-cut 1.45s steps(12,end) 1.08s both; }
   .is-ready .card--about figure::after{ animation:portal-scan 1.45s steps(12,end) .92s both; }
   .is-ready .card--stove figure::after{ animation:portal-scan 1.45s steps(12,end) 1.08s both; }
   .intro-done .portal-media{ clip-path:none; animation:none; }
   @keyframes portal-cut{
-    from{ clip-path:inset(0 100% 0 0 round calc(25 * var(--u))); }
-    to{ clip-path:inset(0 0 0 0 round calc(25 * var(--u))); }
+    from{ clip-path:inset(0 100% 0 0 round calc(8 * var(--u))); }
+    to{ clip-path:inset(0 0 0 0 round calc(8 * var(--u))); }
   }
   /* The glow travels by animating its own offset, not by a translate
      percentage. A translate is a percentage of the glow's width, so the
@@ -715,7 +715,7 @@
     .stat--a{ left:calc(34 * var(--u));  top:calc(540 * var(--u)); }
     .stat--b{ left:calc(396 * var(--u)); top:calc(540 * var(--u)); }
 
-    .card{ border-radius:calc(40 * var(--u)); }
+    .card{ border-radius:calc(30 * var(--u)); }
     .card--about{ left:calc(34 * var(--u)); top:calc(1050 * var(--u)); width:calc(692 * var(--u)); height:calc(250 * var(--u)); }
     .card--about .label{ top:calc(96 * var(--u)); }
     .card--about h2{ top:calc(124 * var(--u)); width:calc(400 * var(--u)); font-size:calc(32 * var(--u)); line-height:calc(36 * var(--u)); }
@@ -732,7 +732,7 @@
     .ghost{ font-size:calc(184 * var(--u)); letter-spacing:calc(14 * var(--u)); bottom:calc(660 * var(--u)); left:calc(-10 * var(--u)); }
   }
 </style>
-<link rel="stylesheet" href="css/site.css?v=5">
+<link rel="stylesheet" href="css/site.css?v=6">
 </head>
 <body>
 
@@ -1096,7 +1096,7 @@
   </section>
 
   <!-- ── contact ─────────────────────────────────────────────────────── -->
-  <section class="sec" id="contact" aria-labelledby="contact-title" style="padding-top:clamp(40px,6vw,80px)">
+  <section class="sec" id="contact" aria-labelledby="contact-title" style="padding-top:clamp(20px,3vw,36px)">
     <div class="wrap contact">
       <div class="rv">
         <p class="eyebrow">Contact</p>
@@ -1222,9 +1222,9 @@
   </div>
 </div>
 
-<script src="config.js?v=5"></script>
-<script src="js/site.js?v=5"></script>
-<script src="js/services.js?v=5"></script>
+<script src="config.js?v=6"></script>
+<script src="js/site.js?v=6"></script>
+<script src="js/services.js?v=6"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>window.THREE || document.write('<script src="assets/three.min.js"><\/script>');</script>
