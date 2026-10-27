@@ -270,10 +270,27 @@
     var host = $('#gallery');
     if (!host) return;
     var videos = CFG.videos || [];
+    var section = $('#work');
+    var track = $('.work-story__track', section);
+    var pin = $('.work-story__pin', section);
+    var count = document.createElement('div');
+    count.className = 'work-story__count';
+    count.setAttribute('aria-hidden', 'true');
+    var current = document.createElement('b');
+    var totalCount = document.createElement('span');
+    count.appendChild(current);
+    count.appendChild(totalCount);
+    var progress = document.createElement('div');
+    progress.className = 'work-story__bar';
+    progress.setAttribute('aria-hidden', 'true');
+    var progressFill = document.createElement('i');
+    progress.appendChild(progressFill);
+    host.appendChild(count);
+    host.appendChild(progress);
 
     videos.forEach(function (v, i) {
       var art = document.createElement('article');
-      art.className = 'vcard rv';
+      art.className = 'vcard';
       art.setAttribute('data-cat', v.category || 'other');
       art.style.setProperty('--rd', Math.min(i % 3, 2) * 90 + 'ms');
 
@@ -325,6 +342,75 @@
       host.appendChild(art);
     });
 
+    var cards = $$('.vcard', host);
+    var liveCards = [];
+    var scrollTotal = 1, target = 0, pos = 0, raf = 0, lastTime = 0, active = -1, lastPos = -1;
+    function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+    function ease(value) { return value < .5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2; }
+    function smooth(value) { return value * value * (3 - 2 * value); }
+
+    function render(value) {
+      var frame = value * Math.max(0, liveCards.length - 1);
+      liveCards.forEach(function (card, index) {
+        var distance = frame - index;
+        var blend = clamp((Math.abs(distance) - .06) / .64, 0, 1);
+        var eased = ease(blend) * (distance > 0 ? 1 : -1);
+        var opacity = 1 - smooth(clamp(blend / .7, 0, 1));
+        var style = card.style;
+        style.opacity = opacity.toFixed(3);
+        style.visibility = blend >= .999 ? 'hidden' : 'visible';
+        style.zIndex = blend < .5 ? '2' : '1';
+        style.transform = REDUCED || blend === 0 ? 'none' :
+          'translate3d(0,' + (eased * 90).toFixed(2) + 'px,0) scale(' + (1 - Math.abs(eased) * .04).toFixed(4) + ')';
+      });
+
+      progressFill.style.transform = 'scaleX(' + value.toFixed(4) + ')';
+      section.classList.toggle('is-started', value > .02);
+      var index = clamp(Math.round(frame), 0, Math.max(0, liveCards.length - 1));
+      liveCards.forEach(function (card, i) {
+        if (i === index) card.removeAttribute('aria-hidden');
+        else card.setAttribute('aria-hidden', 'true');
+      });
+      if (index !== active) {
+        active = index;
+        current.textContent = (index + 1 < 10 ? '0' : '') + (index + 1);
+        totalCount.textContent = '/ ' + (liveCards.length < 10 ? '0' : '') + liveCards.length;
+      }
+    }
+
+    function step(now) {
+      raf = 0;
+      var dt = lastTime ? Math.min((now - lastTime) / 1000, .05) : .016;
+      lastTime = now;
+      pos += (target - pos) * (1 - Math.exp(-dt * 9));
+      if (Math.abs(target - pos) < .0002) pos = target;
+      if (pos !== lastPos) { render(pos); lastPos = pos; }
+      if (pos !== target) raf = requestAnimationFrame(step);
+    }
+
+    function read() {
+      if (!track || !pin) return;
+      scrollTotal = Math.max(1, track.offsetHeight - pin.offsetHeight);
+      target = clamp(-track.getBoundingClientRect().top / scrollTotal, 0, 1);
+      if (!raf) { lastTime = 0; raf = requestAnimationFrame(step); }
+    }
+
+    function updateCards() {
+      liveCards = cards.filter(function (card) { return !card.hidden; });
+      active = -1;
+      if (!liveCards.length) {
+        cards.forEach(function (card) { card.setAttribute('aria-hidden', 'true'); });
+        current.textContent = '00';
+        totalCount.textContent = '/ 00';
+        progressFill.style.transform = 'scaleX(0)';
+        section.classList.remove('work-story--live', 'is-started');
+        return;
+      }
+      if (track) track.style.setProperty('--gallery-count', liveCards.length);
+      section.classList.toggle('work-story--live', !!track && !!pin);
+      read();
+    }
+
     // filters
     var chips = $$('.chip');
     chips.forEach(function (chip) {
@@ -339,10 +425,10 @@
           var show = f === 'all' || card.getAttribute('data-cat') === f;
           card.hidden = !show;
           if (show) {
-            card.classList.add('in');
             card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
           }
         });
+        updateCards();
       });
     });
     // hide filter chips that would be empty
@@ -350,6 +436,16 @@
       var f = chip.getAttribute('data-filter');
       if (f !== 'all' && !videos.some(function (v) { return v.category === f; })) chip.hidden = true;
     });
+
+    updateCards();
+    if (track && pin) {
+      window.addEventListener('scroll', read, { passive: true });
+      window.addEventListener('resize', read);
+      window.addEventListener('load', read);
+      if ('ResizeObserver' in window) new ResizeObserver(read).observe(track);
+      render(0);
+      lastPos = 0;
+    }
   }
 
   /* ── page behaviours ───────────────────────────────────────────────── */

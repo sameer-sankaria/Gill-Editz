@@ -732,7 +732,7 @@
     .ghost{ font-size:calc(184 * var(--u)); letter-spacing:calc(14 * var(--u)); bottom:calc(660 * var(--u)); left:calc(-10 * var(--u)); }
   }
 </style>
-<link rel="stylesheet" href="css/site.css?v=6">
+<link rel="stylesheet" href="css/site.css?v=7">
 </head>
 <body>
 
@@ -946,24 +946,33 @@
   </div>
 
   <!-- ── video portfolio ─────────────────────────────────────────────── -->
-  <section class="sec" id="work" aria-labelledby="work-title">
-    <div class="wrap">
-      <header class="sec-head rv">
-        <p class="eyebrow">Selected work</p>
-        <h2 class="sec-title" id="work-title">Edits that hold attention <em>to the last frame.</em></h2>
-        <p class="sec-sub">YouTube videos, Instagram Reels, cinematic cuts and motion pieces. Tap any card to watch it here.</p>
-      </header>
+  <section class="sec work-story" id="work" aria-labelledby="work-title">
+    <div class="work-story__track">
+      <div class="work-story__pin">
+        <div class="wrap work-story__grid">
+          <div class="work-story__left">
+            <header class="sec-head rv">
+              <p class="eyebrow">Selected work</p>
+              <h2 class="sec-title" id="work-title">Edits that hold attention <em>to the last frame.</em></h2>
+              <p class="sec-sub">YouTube videos, Instagram Reels, cinematic cuts and motion pieces. Tap any card to watch it here.</p>
+            </header>
 
-      <div class="filters rv" role="group" aria-label="Filter projects">
-        <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" class="chip" data-filter="youtube" aria-pressed="false">YouTube</button>
-        <button type="button" class="chip" data-filter="reels" aria-pressed="false">Reels</button>
-        <button type="button" class="chip" data-filter="cinematic" aria-pressed="false">Cinematic</button>
-        <button type="button" class="chip" data-filter="other" aria-pressed="false">Motion &amp; more</button>
+            <div class="filters rv" role="group" aria-label="Filter projects">
+              <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+              <button type="button" class="chip" data-filter="youtube" aria-pressed="false">YouTube</button>
+              <button type="button" class="chip" data-filter="reels" aria-pressed="false">Reels</button>
+              <button type="button" class="chip" data-filter="cinematic" aria-pressed="false">Cinematic</button>
+              <button type="button" class="chip" data-filter="other" aria-pressed="false">Motion &amp; more</button>
+            </div>
+            <p class="work-story__hint" aria-hidden="true"><span></span>Keep scrolling</p>
+          </div>
+
+          <div class="gallery" id="gallery"></div>
+        </div>
       </div>
+    </div>
 
-      <div class="gallery" id="gallery"></div>
-
+    <div class="wrap">
       <div class="work-cta rv">
         <p>There's plenty more on the channels. Follow along for new edits every week.</p>
         <div class="btn-row">
@@ -1223,7 +1232,7 @@
 </div>
 
 <script src="config.js?v=6"></script>
-<script src="js/site.js?v=6"></script>
+<script src="js/site.js?v=7"></script>
 <script src="js/services.js?v=6"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
