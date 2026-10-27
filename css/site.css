@@ -465,7 +465,7 @@ body.modal-open{ overflow:hidden; }
 .svcx--live .svcx__pin{ position:sticky; top:0; height:100vh; height:100svh; display:flex; align-items:center; overflow:hidden; }
 .svcx--live .svcx__pin::before{               /* soft light that drifts with progress */
   content:''; position:absolute; inset:-20%; pointer-events:none;
-  background:radial-gradient(40% 40% at calc(65% + var(--sp,0) * 14%) calc(30% + var(--sp,0) * 40%), rgba(163,191,107,.10), transparent 70%);
+  background:radial-gradient(40% 40% at 70% 40%, rgba(163,191,107,.09), transparent 70%);
 }
 .svcx--live .svcx__grid{ position:relative; width:100%; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); align-items:center; gap:clamp(36px, 6vw, 96px); }
 .svcx--live .svcx__title, .svcx--live .sec-title{ font-size:clamp(34px, 4.4vw, 62px); }
@@ -508,11 +508,11 @@ body.modal-open{ overflow:hidden; }
     radial-gradient(70% 55% at 85% 0%, rgba(163,191,107,.14), transparent 70%),
     linear-gradient(180deg, rgba(242,243,239,.06), rgba(242,243,239,.018));
   border:1px solid rgba(242,243,239,.12);
-  box-shadow:0 40px 90px rgba(0,0,0,.35);
+  box-shadow:0 24px 60px rgba(0,0,0,.32);
   opacity:calc(1 - var(--a, 1));
   transform:translate3d(0, calc(var(--s, 1) * var(--a, 1) * 110px), 0) scale(calc(1 - var(--a, 1) * .06));
-  filter:blur(calc(var(--a, 1) * 10px));
   will-change:transform, opacity;
+  backface-visibility:hidden;
 }
 .svcx--live .svcx__ghost{
   display:block; position:absolute; right:-.04em; bottom:-.2em; z-index:-1; pointer-events:none; user-select:none;
@@ -559,4 +559,25 @@ body.modal-open{ overflow:hidden; }
   .svcx--live .svcx__tags li{ padding:6px 11px; font-size:10px; }
   .svcx--live .svcx__bar{ bottom:-20px; }
 }
-.lite .svcx--live .svcx__panel{ filter:none; box-shadow:0 20px 50px rgba(0,0,0,.3); }
+
+
+
+/* ── services: cheaper on phones, calm cross-fade for "reduce motion" ─────── */
+.lite .svcx--live .svcx__panel{ box-shadow:none; }
+.lite .svcx--live .svcx__copy h3,
+.lite .svcx--live .svcx__copy p,
+.lite .svcx--live .svcx__tags,
+.lite .svcx--live .svcx__art,
+.lite .svcx--live .svcx__ghost,
+.lite .svcx__art .ico,
+.lite .svcx__art .ring{ transform:none; }
+.svcx--calm .svcx__panel{ transform:none; }
+.svcx--calm .svcx__copy h3,
+.svcx--calm .svcx__copy p,
+.svcx--calm .svcx__tags,
+.svcx--calm .svcx__art,
+.svcx--calm .svcx__ghost,
+.svcx--calm .svcx__art .ico,
+.svcx--calm .svcx__art .ring,
+.svcx--calm .svcx__hint span::after{ transform:none; animation:none; }
+.svcx--calm .svcx__count b.tick{ animation:none; }

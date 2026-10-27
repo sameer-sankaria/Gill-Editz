@@ -108,7 +108,7 @@ Open the live link on your phone to check it before sharing.
 - In-page video pop-up (Esc or click outside to close, focus is trapped for keyboard users)
 - About, Hire-me banner, Contact with WhatsApp form, footer
 - Floating WhatsApp "Hire me" button after you scroll past the hero
-- Services as a pinned scroll story: scroll and each of the 6 services takes the stage with blur, slide and rotate motion, plus a clickable list, counter and progress bar (plain cards if "reduce motion" is on)
+- Services as a pinned scroll story: scroll and each of the 6 services takes the stage with blur, slide and rotate motion, plus a clickable list, counter and progress bar (with "reduce motion" on it becomes a calm cross-fade)
 - Smooth scrolling, scroll reveals, active-section highlight in the dock
 - Responsive from small phones to large desktops; honours "reduce motion" settings
 
@@ -116,7 +116,7 @@ Open the live link on your phone to check it before sharing.
 
 The hero has live 3D, so the page automatically switches to a **lite mode** on phones, tablets and
 low-power devices: the liquid-metal shaders become static glass buttons, the 3D root is smaller and
-runs at about 30fps, and all hero rendering pauses once you scroll past it. Desktop keeps the full effect.
+runs at about 30fps, and all hero rendering pauses once you scroll past it. If a device still can't keep up in the first two seconds, the 3D root switches itself off and the static hero stays. Desktop keeps the full effect.
 
 To force a mode for testing, add this to the address: `index.html?lite=1` (lite) or `?lite=0` (full).
 
@@ -124,6 +124,7 @@ To force a mode for testing, add this to the address: `index.html?lite=1` (lite)
 
 | Problem | Fix |
 |---|---|
+| Update doesn't show (old look still there) | Extract the **whole** zip into a new folder (don't open `index.html` from inside the zip), then hard-refresh (Ctrl+Shift+R, or clear the site's data on phone). |
 | Tapping a button shows a "add your link" message | That value in `config.js` still has a placeholder. This is intentional so visitors never hit a dead page. |
 | Nothing is filled in at all | There's a typo in `config.js` (missing quote or comma). Check the browser console (F12). |
 | WhatsApp opens a blank chat | Number must be digits only with country code, e.g. `919876543210`. |

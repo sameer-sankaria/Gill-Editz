@@ -4,13 +4,12 @@
    the runway picks which service is on stage; every panel gets three CSS
    variables (--a how far it has left the stage, --s which side it leaves on,
    --d signed distance for the rotations) and the CSS does the rest.
-   Skipped entirely for "reduce motion" (the page keeps a plain card grid).
+   With "reduce motion" on it still pins and swaps, but as a calm cross-fade.
    ========================================================================== */
 (function () {
   'use strict';
   var sec = document.getElementById('services');
   if (!sec || !sec.classList.contains('svcx')) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var track  = sec.querySelector('.svcx__track');
   var panels = [].slice.call(sec.querySelectorAll('.svcx__panel'));
@@ -21,8 +20,11 @@
   if (!track || !N) return;
 
   sec.classList.add('svcx--live');
+  var CALM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (CALM) sec.classList.add('svcx--calm');
 
   var total = 1, target = 0, pos = 0, raf = 0, active = -1, lastDrawn = -1;
+  var lastA = [];
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
   function measure() {
@@ -47,14 +49,15 @@
       var d = f - i, ad = Math.abs(d);
       var a = clamp((ad - 0.10) / 0.52, 0, 1);    // a short hold, then a quick, clean hand-over
       a = a * a * (3 - 2 * a);
-      var el = panels[i], st = el.style;
-      st.setProperty('--a', a.toFixed(4));
+      if (a === lastA[i]) continue;                // nothing moved: no style writes
+      lastA[i] = a;
+      var st = panels[i].style;
+      st.setProperty('--a', a.toFixed(3));
       st.setProperty('--s', d > 0 ? 1 : -1);      // upcoming panels wait below, finished ones leave upward
-      st.setProperty('--d', d.toFixed(4));
+      st.setProperty('--d', d.toFixed(3));
       st.visibility = a > 0.995 ? 'hidden' : 'visible';
       st.zIndex = a < 0.5 ? 2 : 1;
     }
-    sec.style.setProperty('--sp', p.toFixed(4));
     if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
     sec.classList.toggle('is-started', p > 0.02);
 

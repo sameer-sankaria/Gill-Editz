@@ -729,7 +729,7 @@
     .ghost{ font-size:calc(184 * var(--u)); letter-spacing:calc(14 * var(--u)); bottom:calc(660 * var(--u)); left:calc(-10 * var(--u)); }
   }
 </style>
-<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/site.css?v=4">
 </head>
 <body>
 
@@ -1219,9 +1219,9 @@
   </div>
 </div>
 
-<script src="config.js"></script>
-<script src="js/site.js"></script>
-<script src="js/services.js"></script>
+<script src="config.js?v=4"></script>
+<script src="js/site.js?v=4"></script>
+<script src="js/services.js?v=4"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>window.THREE || document.write('<script src="assets/three.min.js"><\/script>');</script>
@@ -2089,7 +2089,7 @@ window.__seek   = v => { clock = v; drawn = null; };
       window.__heroVisible = es[es.length - 1].isIntersecting;
     }, { threshold: 0 }).observe(heroEl);
   }
-  var lastRender = 0;
+  var lastRender = 0, fpsSum = 0, fpsN = 0, fpsWarm = 30, fpsDone = false;   /* first 30 frames skipped (shader compile) */
   var lastX = null, lastY = null;
   var ticking = false, parOn = false;
 
@@ -2125,7 +2125,25 @@ window.__seek   = v => { clock = v; drawn = null; };
     }
     if (renderer && clock) {
       /* lite: ~30fps is plenty for a slow-moving root and halves the GPU load */
-      if (!LITE || now - lastRender > 30) { lastRender = now; renderFrame(); }
+      if (!LITE || now - lastRender > 30) {
+        var gap = now - lastRender;
+        lastRender = now; renderFrame();
+        /* safety net: if the first ~2 seconds average under ~18fps the device
+           can't carry the 3D root, so switch it off and keep the static hero */
+        if (!fpsDone) {
+          if (fpsWarm > 0) { fpsWarm--; }
+          else {
+            if (gap < 500) { fpsSum += gap; fpsN++; }
+            if (fpsN === 60) {
+              fpsDone = true;
+              if (fpsSum / fpsN > 55) {
+                try { renderer.dispose(); if (renderer.forceContextLoss) renderer.forceContextLoss(); } catch (e) {}
+                canvas.style.display = 'none'; renderer = null;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
